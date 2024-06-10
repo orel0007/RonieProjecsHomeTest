@@ -4,8 +4,9 @@ using RonieProjecsHomeTest.Users;
 
 namespace RonieProjecsHomeTest.SaveFile
 {
-    interface Isave
+    public interface Isave
     {
-        void Save(string path, List<User> users);
+        void  Save(String path, List<User> users);
+        
     }
 }

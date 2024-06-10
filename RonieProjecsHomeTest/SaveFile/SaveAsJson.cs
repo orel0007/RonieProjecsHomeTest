@@ -9,9 +9,8 @@ namespace RonieProjecsHomeTest.SaveFile
     {
         public void Save(String path, List<User> users)
         {
-            var json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(path, json);
+            var jsonString = JsonSerializer.Serialize(users);
+            File.WriteAllTextAsync(path, jsonString);
         }
     }
-
 }
