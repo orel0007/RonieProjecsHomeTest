@@ -1,5 +1,7 @@
 ﻿using RonieProjecsHomeTest.Users;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 namespace RonieProjecsHomeTest.SaveFile
 {
@@ -7,7 +9,6 @@ namespace RonieProjecsHomeTest.SaveFile
     {
         public void Save(String path, List<User> users)
         {
-
             var json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(path, json);
         }

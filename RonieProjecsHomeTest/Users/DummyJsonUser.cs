@@ -22,5 +22,9 @@ namespace RonieProjecsHomeTest.Users
             get { return LastName; }
             set { LastName = value; }
         }
+        public DummyJsonUser()
+        {
+            Console.WriteLine("DummyJsonUser");
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace RonieProjecsHomeTest.Users
 {
-    public class DummyJsonApiList
+    public class ReqreList
     {
 
         [JsonPropertyName("total_pages")]

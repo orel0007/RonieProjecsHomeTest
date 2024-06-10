@@ -19,6 +19,9 @@ namespace RonieProjecsHomeTest.Models
             get { return LastName; }
             set { LastName = value; }
         }
-
+        public ReqresUser()
+        {
+            Console.WriteLine("ReqresUser");
+        }
     }
 }
