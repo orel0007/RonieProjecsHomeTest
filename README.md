@@ -7,16 +7,11 @@
 Orel Aviad
 
 ## Methodologies Used
+### 1. Object-Oriented Programming (OOP)
 1) Encapsulation
 2. Inheritance
 3. Polymorphism
 4. Abstraction
-5. Json serialization
-6. Json deserialization
-
-
-### 1. Object-Oriented Programming (OOP)
-
 ### 2. Asynchronous Programming
 - Utilized asynchronous methods (`async` and `await`) to ensure non-blocking operations while fetching data from multiple APIs, improving the application's responsiveness and performance.
 
@@ -25,6 +20,9 @@ Orel Aviad
 
 ### 4. Dependency Injection
 - Though not implemented in this basic version, the design can easily integrate dependency injection to manage dependencies like `HttpClient`.
+### 5. Json serialization
+
+### 6. Json deserialization
 
 ## Getting Started
 
