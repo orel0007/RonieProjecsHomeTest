@@ -24,22 +24,18 @@ namespace RonieProjecsHomeTest
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            DataSave dataSave = new DataSave();
-            dataSave.GetUserInputs();
+            UsersService usersService = new UsersService();
+            usersService.GetUserInputs();
 
             List<User> users = new List<User>(); // List to hold all fetched users
             FetchUsers fetchUsers = new FetchUsers();
-            users.AddRange(await fetchUsers.FetchRandomUserApiAsync());
-            users.AddRange(await fetchUsers.FetchJsonPlaceholderUsersAsync());
-            users.AddRange(await fetchUsers.FetchDummyJsonUsersAsync());
-            users.AddRange(await fetchUsers.FetchReqresUsersAsync());
-            var fetchTasks = new[]
-        {
+ 
+            var fetchTasks = new[]{
             fetchUsers.FetchRandomUserApiAsync(),
             fetchUsers.FetchJsonPlaceholderUsersAsync(),
             fetchUsers.FetchDummyJsonUsersAsync(),
             fetchUsers.FetchReqresUsersAsync()
-        };
+            };
 
             var results = await Task.WhenAll(fetchTasks);
 
@@ -50,7 +46,7 @@ namespace RonieProjecsHomeTest
             }
             Console.WriteLine($"Total users fetched: {users.Count}");
 
-            dataSave.SaveUsers(users);
+            await usersService.SaveUsersAsync(users);
 
             stopwatch.Stop();
    
