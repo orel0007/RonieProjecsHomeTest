@@ -1,17 +1,14 @@
-﻿using System.Net.Http;
+﻿using RonieProjecsHomeTest.Entities;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using RonieProjecsHomeTest.Entities;
-using RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Mappers;
-using RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Entities;
-
+using RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Enitites;
+using RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Mapper;
 namespace RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser
 {
     internal class Client : IUsers
     {
         private const string baseUrl = "https://jsonplaceholder.typicode.com/users";
         internal static int SourceId = 2;
+
         public void AddUser(User user)
         {
             throw new NotImplementedException();
@@ -24,7 +21,6 @@ namespace RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser
                 var response = await client.GetAsync($"{baseUrl}/{id}");
                 var json = await response.Content.ReadAsStringAsync();
                 var user = JsonSerializer.Deserialize<GetUserResponse>(json);
-
                 return user?.Map();
             }
         }
@@ -37,7 +33,7 @@ namespace RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser
                 var json = await response.Content.ReadAsStringAsync();
                 var users = JsonSerializer.Deserialize<List<GetUserResponse>>(json);
 
-                return users?.Map();
+                return users?.Select(user => user.Map()).ToList();
             }
         }
     }

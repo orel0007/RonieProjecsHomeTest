@@ -1,6 +1,6 @@
 ﻿
 namespace RonieProjecsHomeTest.Adapters.RandomUser.Mappers
-{
+{ 
     internal static class Users
     {
         public static RonieProjecsHomeTest.Entities.User Map(this RandomUser.Entities.Result result)

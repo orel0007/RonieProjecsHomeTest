@@ -1,5 +1,5 @@
-﻿
-namespace RonieProjecsHomeTest.Adapters.DummyJsonUser.Mappers
+
+﻿namespace RonieProjecsHomeTest.Adapters.DummyJsonUser.Mappers
 {
     internal static class Users
     {
@@ -17,6 +17,5 @@ namespace RonieProjecsHomeTest.Adapters.DummyJsonUser.Mappers
         {
             return users.Select(user => user.Map()).ToList();
         }
-
     }
 }

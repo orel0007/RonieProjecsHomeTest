@@ -1,15 +1,19 @@
-﻿using RonieProjecsHomeTest.Adapters.DummyJsonUser.Entities;
+
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+using RonieProjecsHomeTest.Adapters.DummyJsonUser.Entities;
 using RonieProjecsHomeTest.Adapters.DummyJsonUser.Mappers;
 using RonieProjecsHomeTest.Entities;
-using System.Text.Json;
 
 namespace RonieProjecsHomeTest.Adapters.DummyJsonUser
 {
-
     internal class Client : IUsers
     {
         private const string baseUrl = "https://jsonplaceholder.typicode.com/users";
         internal static int SourceId = 3;
+
         public void AddUser(User user)
         {
             throw new NotImplementedException();
@@ -33,7 +37,7 @@ namespace RonieProjecsHomeTest.Adapters.DummyJsonUser
                 var response = await client.GetAsync(baseUrl);
                 var json = await response.Content.ReadAsStringAsync();
                 var users = JsonSerializer.Deserialize<List<GetUserResponse>>(json);
-                return users?.Map();
+                return users?.Map() ?? new List<User>();
             }
         }
     }
