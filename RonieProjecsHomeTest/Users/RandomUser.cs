@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json.Serialization;
-using System.Xml.Linq;
+﻿using System.Text.Json.Serialization;
 using RonieProjecsHomeTest.Users;
 
 namespace RonieProjecsHomeTest.Models
@@ -12,11 +6,11 @@ namespace RonieProjecsHomeTest.Models
     public class RandomUser : User
     {
         [JsonPropertyName("name")]
-        public Name Name {  get; set; } = new Name();
+        public Name? Name {  get; set; }
         public RandomUser(Name name, string email) 
         {
  
-            Console.WriteLine("RandomUser");
+            //Console.WriteLine("RandomUser");
 
             FirstName = name.First;
             LastName = name.Last;

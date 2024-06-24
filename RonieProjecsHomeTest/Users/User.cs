@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace RonieProjecsHomeTest.Users
 {
@@ -11,7 +8,7 @@ namespace RonieProjecsHomeTest.Users
         public string LastName { get; set; } = string.Empty;
 
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
         public int SourceId { get; set; } = int.MinValue;
     }
 }

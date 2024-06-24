@@ -1,6 +1,5 @@
 ﻿using RonieProjecsHomeTest.Users;
 using System.Text.Json.Serialization;
-using RonieProjecsHomeTest.Models;
 
 namespace RonieProjecsHomeTest.Models
 {
@@ -9,7 +8,10 @@ namespace RonieProjecsHomeTest.Models
         [JsonPropertyName("name")]
         public string FullName
         {
-            get { return FirstName; }
+            get
+            {
+                return FirstName;
+            }
             set
             {
                 var names = value.Split(' ');
@@ -17,9 +19,9 @@ namespace RonieProjecsHomeTest.Models
                 LastName = names.Length > 1 ? string.Join(' ', names.Skip(1)) : string.Empty;
             }
         }
-        public JsonPlaceholderUser()
+       public JsonPlaceholderUser()
         {
-            Console.WriteLine("JsonPlaceholderUser");
+            //Console.WriteLine("JsonPlaceholderUser");
         }
     }
 }

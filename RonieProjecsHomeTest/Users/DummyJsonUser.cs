@@ -24,7 +24,7 @@ namespace RonieProjecsHomeTest.Users
         }
         public DummyJsonUser()
         {
-            Console.WriteLine("DummyJsonUser");
+            //Console.WriteLine("DummyJsonUser");
         }
     }
 }

@@ -10,11 +10,19 @@ namespace RonieProjecsHomeTest.SaveFile
     {
         public async Task SaveAsync(string path, List<User> users)
         {
-            var jsonString = JsonSerializer.Serialize(users, new JsonSerializerOptions
+            try
             {
-                WriteIndented = true // Optional: makes the JSON output more readable
-            });
-            await File.WriteAllTextAsync(path, jsonString);
+                var jsonString = JsonSerializer.Serialize(users, new JsonSerializerOptions
+                {
+                    WriteIndented = true // Optional: makes the JSON output more readable
+                });
+                await File.WriteAllTextAsync(path, jsonString);
+                Console.WriteLine("Users saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving users to file: {ex.Message}");
+            }
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RonieProjecsHomeTest.Users;
+﻿using RonieProjecsHomeTest.Users;
 
 namespace RonieProjecsHomeTest.SaveFile
 {
@@ -12,22 +6,22 @@ namespace RonieProjecsHomeTest.SaveFile
     {
         public string FilePath { get; set; } = string.Empty;
         public string FileFormat { get; set; } = string.Empty;
+
         public string SaveFilePath { get; set; } = string.Empty;
 
-        public void GetUserInputs()
+        public async Task GetUserInputsAsync()
         {
             Console.Write("Enter the folder path to save the file: ");
             try
             {
-                FilePath = Console.ReadLine();
+
+                FilePath = await Task.Run(() => Console.ReadLine());
+
                 ValidatePath(FilePath);
-
+        
                 Console.Write("Enter the desired file format (json/csv): ");
-                FileFormat = Console.ReadLine().ToLower();
+                FileFormat = (await Task.Run(() => Console.ReadLine()))?.ToLower();
                 ValidateFormat(FileFormat);
-
-                // Proceed with saving the file using the validated FilePath and FileFormat
-                Console.WriteLine($"Saving file to: {FilePath} as {FileFormat} format.");
             }
             catch (Exception ex)
             {
@@ -51,26 +45,23 @@ namespace RonieProjecsHomeTest.SaveFile
             }
         }
 
-        public void ValidatePath(string path)
+        public void checkNull(string path, string massage)
         {
             if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("The folder path cannot be null or empty.");
-
+                throw new ArgumentException(massage);
+        }
+        public void ValidatePath(string path)
+        {
+            checkNull(path, "The folder path cannot be null or empty.");
             if (!Directory.Exists(path))
                 throw new DirectoryNotFoundException("The specified folder path does not exist.");
         }
 
-        public void ValidateFormat(string format)
-        {
+        public void ValidateFormat(string format) {
+            checkNull(format, "The format path cannot be null or empty. Nedd to be 'json' or 'csv'.");
             if (format != "json" && format != "csv")
-            {
                 throw new InvalidFileFormatException("Invalid file format. Please enter 'json' or 'csv'.");
-            }
         }
-    }
 
-    public class InvalidFileFormatException : Exception
-    {
-        public InvalidFileFormatException(string message) : base(message) { }
     }
 }

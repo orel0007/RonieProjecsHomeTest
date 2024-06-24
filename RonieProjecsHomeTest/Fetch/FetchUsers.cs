@@ -7,70 +7,94 @@ namespace RonieProjecsHomeTest.Fetch
 {
     public class FetchUsers
     {
-        private readonly HttpClient _httpClient;
-
-        public FetchUsers()
-        {
-            _httpClient = new HttpClient();
-        }
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         public async Task<IEnumerable<User>> FetchRandomUserApiAsync()
         {
-            var response = await _httpClient.GetFromJsonAsync<JsonElement>("https://randomuser.me/api/?results=500");
-            return response.GetProperty("results").EnumerateArray().Select(json =>
+            try
             {
-                var user = JsonSerializer.Deserialize<RandomUser>(json.ToString());
-                user.SourceId = 1; // RandomUser
-                return user as RandomUser;
-            });
+                var response = await _httpClient.GetFromJsonAsync<JsonElement>("https://randomuser.me/api/?results=500");
+                return response.GetProperty("results").EnumerateArray().Select(json =>
+                {
+                    var user = JsonSerializer.Deserialize<RandomUser>(json.ToString());
+                    user.SourceId = 1; // RandomUser
+                    return user as RandomUser;
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching RandomUser API: {ex.Message}");
+                return Enumerable.Empty<User>();
+            }
         }
 
         public async Task<IEnumerable<User>> FetchJsonPlaceholderUsersAsync()
         {
-            var response = await _httpClient.GetFromJsonAsync<JsonElement[]>("https://jsonplaceholder.typicode.com/users");
-            return response.Select(json =>
+            try
             {
-                var user = JsonSerializer.Deserialize<JsonPlaceholderUser>(json.ToString());
-                user.SourceId = 2; // JsonPlaceholder
-                return user as JsonPlaceholderUser;
-            });
+                var response = await _httpClient.GetFromJsonAsync<JsonElement[]>("https://jsonplaceholder.typicode.com/users");
+                return response.Select(json =>
+                {
+                    var user = JsonSerializer.Deserialize<JsonPlaceholderUser>(json.ToString());
+                    user.SourceId = 2; // JsonPlaceholder
+                    return user as JsonPlaceholderUser;
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching JsonPlaceholder API: {ex.Message}");
+                return Enumerable.Empty<User>();
+            }
         }
 
         public async Task<IEnumerable<User>> FetchDummyJsonUsersAsync()
         {
-            var response = await _httpClient.GetFromJsonAsync<JsonElement>("https://dummyjson.com/users");
-            return response.GetProperty("users").EnumerateArray().Select(json =>
+            try
             {
-                var user = JsonSerializer.Deserialize<DummyJsonUser>(json.ToString());
-                user.SourceId = 3; // DummyJson
-                return user as DummyJsonUser;
-            });
+                var response = await _httpClient.GetFromJsonAsync<JsonElement>("https://dummyjson.com/users");
+                return response.GetProperty("users").EnumerateArray().Select(json =>
+                {
+                    var user = JsonSerializer.Deserialize<DummyJsonUser>(json.ToString());
+                    user.SourceId = 3; // DummyJson
+                    return user as DummyJsonUser;
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching DummyJson API: {ex.Message}");
+                return Enumerable.Empty<User>();
+            }
         }
 
         public async Task<IEnumerable<User>> FetchReqresUsersAsync()
         {
-
             var users = new List<User>();
             int currentPage = 1;
             int totalPages;
-            do
+            try
             {
-                var response = await _httpClient.GetFromJsonAsync<ReqreList>($"https://reqres.in/api/users?page={currentPage}");
-                totalPages = response.TotalPages;
-
-                users.AddRange(response.Data.Select(reqresUser => new ReqresUser
+                do
                 {
-                    FirstName = reqresUser.FirstName,
-                    LastName = reqresUser.LastName,
-                    Email = reqresUser.Email,
-                    SourceId = 4 // Reqres
-                }));
+                    var response = await _httpClient.GetFromJsonAsync<ReqresList>($"https://reqres.in/api/users?page={currentPage}");
+                    totalPages = response.TotalPages;
+                    users.AddRange(response.Data.Select(reqresUser => new ReqresUser
+                    {
+                        FirstName = reqresUser.FirstName,
+                        LastName = reqresUser.LastName,
+                        Email = reqresUser.Email,
+                        SourceId = 4 // Reqres
+                    }));
 
-                currentPage++;
-            } while (currentPage <= totalPages);
+                    currentPage++;
+                } while (currentPage <= totalPages);
 
-            return users;
-
+                return users;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching Reqres API: {ex.Message}");
+                return users;
+            }
         }
-    }  
+    }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using RonieProjecsHomeTest.Users;
+﻿using RonieProjecsHomeTest.Users;
 
 namespace RonieProjecsHomeTest.SaveFile
 {
