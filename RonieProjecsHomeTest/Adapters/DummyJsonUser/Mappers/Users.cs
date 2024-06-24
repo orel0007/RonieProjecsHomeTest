@@ -1,21 +1,26 @@
+using System.Collections.Generic;
+using System.Linq;
+using RonieProjecsHomeTest.Adapters.DummyJsonUser.Entities;
+using RonieProjecsHomeTest.Entities;
 
-﻿namespace RonieProjecsHomeTest.Adapters.DummyJsonUser.Mappers
+namespace RonieProjecsHomeTest.Adapters.DummyJsonUser.Mappers
 {
     internal static class Users
     {
-        public static RonieProjecsHomeTest.Entities.User Map(this RonieProjecsHomeTest.Adapters.DummyJsonUser.Entities.GetUserResponse user)
+        public static User Map(this GetUserResponse user)
         {
-            return new RonieProjecsHomeTest.Entities.User
+            return new User
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
+                FirstName = user.firstName,
+                LastName = user.lastName,
+                Email = user.email,
                 SourceId = Client.SourceId
             };
         }
-        public static List<RonieProjecsHomeTest.Entities.User> Map(this List<RonieProjecsHomeTest.Adapters.DummyJsonUser.Entities.GetUserResponse> users)
+
+        public static List<User> Map(this List<GetUserResponse> users)
         {
-            return users.Select(user => user.Map()).ToList();
+            return users?.Select(user => user.Map()).ToList() ?? new List<User>();
         }
     }
 }

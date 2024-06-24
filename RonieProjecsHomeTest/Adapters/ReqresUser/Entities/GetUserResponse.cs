@@ -8,8 +8,8 @@
 
     public class Data
     {
-        public string Email { get; set; } = string.Empty;
-        public string First_name { get; set; } = string.Empty;
-        public string Last_name { get; set; } = string.Empty;
+        public string email { get; set; } = string.Empty;
+        public string first_name { get; set; } = string.Empty;
+        public string last_name { get; set; } = string.Empty;
     }
 }

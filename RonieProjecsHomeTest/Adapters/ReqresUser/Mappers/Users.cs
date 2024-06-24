@@ -1,4 +1,4 @@
-﻿using RonieProjecsHomeTest.Entities;
+﻿  using RonieProjecsHomeTest.Entities;
 using RonieProjecsHomeTest.Adapters.ReqresUser.Entities;
 
 namespace RonieProjecsHomeTest.Adapters.ReqresUser.Mappers
@@ -9,9 +9,9 @@ namespace RonieProjecsHomeTest.Adapters.ReqresUser.Mappers
         {
             return new User
             {
-                FirstName = data.First_name,
-                LastName = data.Last_name,
-                Email = data.Email,
+                FirstName = data.first_name,
+                LastName = data.last_name,
+                Email = data.email,
                 SourceId = Client.SourceId
             };
         }

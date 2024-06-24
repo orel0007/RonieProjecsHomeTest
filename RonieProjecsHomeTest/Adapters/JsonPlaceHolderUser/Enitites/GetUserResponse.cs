@@ -1,8 +1,10 @@
-﻿namespace RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Enitites
+﻿using System.Text.Json.Serialization;
+
+namespace RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Enitites
 {
     internal class GetUserResponse
     {
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string name { get; set; } = string.Empty;
+        public string email { get; set; } = string.Empty;
     }
 }

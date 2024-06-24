@@ -16,7 +16,7 @@ namespace RonieProjecsHomeTest
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            (string fileFormat, string folderPath) = HandlerUserInput.GetUserInputs();
+            (string fileFormat, string folderPath) = HandlerUserInput.GetUserInputs(true);
 
             var handlers = HandlerUserList.GetUserHandlers();
             var tasks = handlers.Select(handler => handler.GetUsers()).ToList();

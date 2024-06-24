@@ -9,9 +9,9 @@ namespace RonieProjecsHomeTest.Adapters.JsonPlaceHolderUser.Mapper
         {
             return new Entities.User
             {
-                FirstName = user.Name.Split(' ')[0],
-                LastName = user.Name.Split(' ').Last(),
-                Email = user.Email,
+                FirstName = user.name.Split(' ')[0],
+                LastName = user.name.Split(' ').Last(),
+                Email = user.email,
                 SourceId = Client.SourceId
             };
         }

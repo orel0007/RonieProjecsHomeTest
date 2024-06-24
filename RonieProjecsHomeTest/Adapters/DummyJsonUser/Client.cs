@@ -1,5 +1,5 @@
-
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace RonieProjecsHomeTest.Adapters.DummyJsonUser
 {
     internal class Client : IUsers
     {
-        private const string baseUrl = "https://jsonplaceholder.typicode.com/users";
+        private const string baseUrl = "https://dummyjson.com/users";
         internal static int SourceId = 3;
 
         public void AddUser(User user)
@@ -36,8 +36,8 @@ namespace RonieProjecsHomeTest.Adapters.DummyJsonUser
             {
                 var response = await client.GetAsync(baseUrl);
                 var json = await response.Content.ReadAsStringAsync();
-                var users = JsonSerializer.Deserialize<List<GetUserResponse>>(json);
-                return users?.Map() ?? new List<User>();
+                var userResponseWrapper = JsonSerializer.Deserialize<UsersWrapper>(json);
+                return userResponseWrapper?.Users.Map() ?? new List<User>();
             }
         }
     }

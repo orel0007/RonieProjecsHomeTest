@@ -10,6 +10,7 @@ namespace RonieProjecsHomeTest.Handlers
 
         public static string UserInputHandler(string prompt, string defaultStr, Action<string> validationAction)
         {
+            
             int errorCount = 0;
             string userInput = null;
             bool isValid = false;
@@ -41,8 +42,10 @@ namespace RonieProjecsHomeTest.Handlers
             return userInput;
         }
 
-        public static (string, string) GetUserInputs()
+        public static (string, string) GetUserInputs(bool deafult)
         {
+            if (deafult)
+                return (DefaultFileFormat, DefaultFolderPath);
             string fileFormat = UserInputHandler(
                 "Enter file format (json or csv): ",
                 DefaultFileFormat,
