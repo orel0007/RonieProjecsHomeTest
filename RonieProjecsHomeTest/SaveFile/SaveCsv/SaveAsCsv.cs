@@ -3,9 +3,9 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using CsvHelper;
-using RonieProjecsHomeTest.Users;
+using RonieProjecsHomeTest.Entities;
 
-namespace RonieProjecsHomeTest.SaveFile
+namespace RonieProjecsHomeTest.SaveFile.SaveCsv
 {
     public class SaveAsCsv : ISaveFile
     {

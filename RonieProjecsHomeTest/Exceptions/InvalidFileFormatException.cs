@@ -1,18 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using System;
-
-public class InvalidFileFormatException : Exception
+namespace RonieProjecsHomeTest.Exceptions
 {
-    public InvalidFileFormatException() { }
+    public class InvalidFileFormatException : Exception
+    {
+        // Default constructor
+        public InvalidFileFormatException()
+        {
+        }
 
-    public InvalidFileFormatException(string message)
-        : base(message) { }
+        // Constructor that accepts a custom message
+        public InvalidFileFormatException(string message)
+            : base(message)
+        { }
 
-    public InvalidFileFormatException(string message, Exception inner)
-        : base(message, inner) { }
+        // Constructor that accepts a custom message and an inner exception
+        public InvalidFileFormatException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
+    }
 }
+

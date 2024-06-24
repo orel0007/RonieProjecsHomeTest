@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using RonieProjecsHomeTest.Models;
-using RonieProjecsHomeTest.Users;
-using RonieProjecsHomeTest.Fetch;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using RonieProjecsHomeTest.Adapters;
+using RonieProjecsHomeTest.Entities;
+using RonieProjecsHomeTest.SaveFile.SaveCsv;
 using RonieProjecsHomeTest.SaveFile;
-
+using RonieProjecsHomeTest.Validations;
+using RonieProjecsHomeTest.Handlers;
 
 namespace RonieProjecsHomeTest
 {
-
     public class Program
     {
         public static async Task Main(string[] args)
@@ -24,34 +15,23 @@ namespace RonieProjecsHomeTest
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            UsersService usersService = new UsersService();
-            usersService.GetUserInputs();
+            (string fileFormat, string folderPath) = HandlerUserInput.GetUserInputs();
 
-            List<User> users = new List<User>(); // List to hold all fetched users
-            FetchUsers fetchUsers = new FetchUsers();
- 
-            var fetchTasks = new[]{
-            fetchUsers.FetchRandomUserApiAsync(),
-            fetchUsers.FetchJsonPlaceholderUsersAsync(),
-            fetchUsers.FetchDummyJsonUsersAsync(),
-            fetchUsers.FetchReqresUsersAsync()
-            };
+            var handlers = HandlerUserList.GetUserHandlers();
 
-            var results = await Task.WhenAll(fetchTasks);
+            var tasks = handlers.Select(handler => handler.GetUsers()).ToList();
 
-            // Add all fetched users to the list
-            foreach (var result in results)
-            {
-                users.AddRange(result);
-            }
+            await Task.WhenAll(tasks);
+
+            var users = tasks.SelectMany(task => task.Result).ToList();
+           
             Console.WriteLine($"Total users fetched: {users.Count}");
 
-            await usersService.SaveUsersAsync(users);
+            await SaveUtil.SaveUsersAsync(users, folderPath, fileFormat);
 
             stopwatch.Stop();
-   
-            Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds} ms");
 
+            Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds} ms");
         }
     }
 }
